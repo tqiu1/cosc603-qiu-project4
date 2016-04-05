@@ -29,7 +29,7 @@ public class VendingMachineItemTest {
 	@Test(expected=VendingMachineException.class)
 	public void TestConstructor() {
 	
-		item3 = new VendingMachineItem("abc",-1.20);
+		new VendingMachineItem("abc",-1.20);
 	
 	}
 	

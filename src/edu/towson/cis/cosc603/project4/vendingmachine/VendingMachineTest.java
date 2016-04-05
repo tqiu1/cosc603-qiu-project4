@@ -28,35 +28,60 @@ public class VendingMachineTest {
 		item4 = new VendingMachineItem("Hamburger", 4);
 	}
 	
+	
+	/**
+	 * Test for the getSlotIndex(String code) method of VendingMachine class.
+	 */
+	@Test(expected=VendingMachineException.class)
+	public void testGetSlotIndex() {
+
+		assertEquals(0, vm.getSlotIndex("A"));
+		assertEquals(1, vm.getSlotIndex("B"));
+		assertEquals(2, vm.getSlotIndex("C"));
+		assertEquals(3, vm.getSlotIndex("D"));
+		vm.getSlotIndex("G");	
+		//assertEquals(null, vm.getSlotIndex("G"));
+	}
+	
+	
 	/**
 	 * Test for the addItem(VendingMachineItem item, String code) method of VendingMachine class.
 	 */
-	@Test
+	@Test(expected=VendingMachineException.class)
 	public void testAddItem() {
 		vm.addItem(item1, "A");
 		vm.addItem(item2, "B");
+			
 		assertEquals(item1, vm.itemArray[0]);
 		assertEquals(item2, vm.itemArray[1]);
+
+		
+		vm.addItem(item1, "B");
 	}
 	
 	/**
 	 * Test for the removeItem(String code) method of VendingMachine class.
 	 */
-	@Test
+	@Test(expected=VendingMachineException.class)
 	public void testRemoveItem() {
 		vm.addItem(item1, "A");
 		assertEquals(item1, vm.removeItem("A"));
+		vm.addItem(item2, "B");
+		assertEquals(item2, vm.removeItem("C"));
+		
 		//assertEquals(item2, vm.removeItem("2"));
 	}
 	
 	/**
 	 * Test for the insertMoney(double amount) method of VendingMachine class.
 	 */
-	@Test
+	@Test(expected=VendingMachineException.class)
 	public void testInsertMoney() {
 		vm.insertMoney(1.50);
 		assertEquals(1.50, vm.balance, 0.001);
 		vm.insertMoney(2.00);
+		assertEquals(3.50, vm.balance, 0.001);
+		vm.insertMoney(-0.5);
 		assertEquals(3.50, vm.balance, 0.001);
 	}
 	
@@ -94,6 +119,18 @@ public class VendingMachineTest {
 		assertEquals(0.5, vm.returnChange(), 0.001);	
 	
 	}
+	
+	/**
+	 * Test for the getItem()method of VendingMachine class.
+	 */
+	@Test	
+	public void TestgetItem() throws VendingMachineException {
+		vm.addItem(item1, "A");
+		vm.addItem(item2, "B");
+		assertEquals(item1, vm.getItem("A"));
+		assertEquals(item2, vm.getItem("B"));
+	}
+	
 	
 	/**
 	 * Cleans up test objects after a test case is executed.
