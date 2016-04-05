@@ -103,7 +103,9 @@ public class VendingMachineTest {
 		vm.addItem(item4, "C");
 		vm.balance=3.5;
 		assertFalse(vm.makePurchase("C"));
+		assertFalse(vm.makePurchase("A"));
 		assertTrue(vm.makePurchase("B"));
+		
 		
 	}
 	
